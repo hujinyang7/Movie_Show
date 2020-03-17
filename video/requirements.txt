@@ -1,0 +1,4 @@
+django==2.2.7
+mako==1.1.2
+
+#pip install -r requirements.txt
