@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import djcelery
+djcelery.setup_loader()
+
+BROKER_URL = 'redis://localhost:6379/2'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/3'
+CELERY_IMPORTS = ('app.tasks.task')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +31,7 @@ SECRET_KEY = '^$o+1zvqw6zn42za&f!(-@$y^kt@=%gl+b@41ac#$&snl%^$)l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'djcelery',
 ]
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,13 +87,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'muke_video',
+        'NAME':'muke_video2',
         'USER':'root',
         'PASSWORD':'1993hjy',
         'HOST':'127.0.0.1',
         'PORT':3306,
     }
 }
+
 
 
 # Password validation
@@ -124,3 +135,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
+
+
+
+#七牛云
+QINIU_AK = 'gloWIXbI-ABkiRAKrZviLRfwc7IGNek-nxWvE-OP'
+QINIU_SK = 'jLAmAwkTvTd9LkxUxibPrNqdMLaNxU7Gf8-5S_Ye'
+QINIU_VIDEO = 'jayemukevideo'
+QINIU_VIDEO_URL = 'http://q7gcxfskr.bkt.clouddn.com'

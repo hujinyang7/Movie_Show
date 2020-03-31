@@ -13,7 +13,7 @@ class ClientUser(models.Model):
     password = models.CharField(max_length=255,null=False)
     avatar = models.CharField(max_length=500,default='')
     gender = models.CharField(max_length=10,default='')
-    birthdat = models.DateTimeField(null=True,blank=True,default=None)
+    birthday = models.DateTimeField(null=True,blank=True,default=None)
     status = models.BooleanField(default=True,db_index=True)
     create_time = models.DateTimeField(auto_now_add=True)
 
@@ -34,11 +34,11 @@ class ClientUser(models.Model):
 
 
     @classmethod
-    def get_user(cls,username,passeord):
+    def get_user(cls,username,password):
         try:
             user = cls.objects.get(
                 username=username,
-                password=hash_password(passeord)
+                password=hash_password(password)
             )
             return user
         except:
